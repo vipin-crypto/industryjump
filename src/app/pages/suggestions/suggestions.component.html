@@ -1,0 +1,48 @@
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <div class="row">
+          <div class="col-md-6">
+            <h6 class="m-0 font-weight-bold text-primary">Suggestions</h6>
+          </div>
+         </div>
+       </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>User Name</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Role</th>
+                <th>Description</th>
+                <th>Suggestion</th>
+                 </tr>
+            </thead>
+            <tbody>
+             <tr *ngFor="let item of SuggestionList; let i = index">
+                <td>{{i + serialNumber + 1}}</td>
+                <td><span *ngIf="item.userId">{{item.userId.firstName}} {{item.userId.lastName}}</span></td>
+                <td>  <span *ngIf="item.userId">{{item.userId.address}} </span></td> 
+                <td> <span *ngIf="item.userId">{{item.userId.email}} </span></td> 
+                <td><span *ngIf="item.userId"> {{item.userId.phone}}</span></td>
+                <td><span  class="badge badge-info" *ngIf="item.userId">{{item.userId.role}} </span></td>
+                <td>{{item.desc}}</td>
+                <td>{{item.suggestion}}</td>
+                <!-- <td>{{item.startDate | date: 'yyyy-MM-dd'}}</td>
+                <td>{{item.completedDate | date: 'yyyy-MM-dd'}}</td>
+                <td>{{item.totalAmount}}</td>
+                <td>{{item.tax}}</td>
+               -->
+            </tr>
+            </tbody>
+          </table>
+        </div>
+     </div>
+    </div>
+  </div>
+ 
+   

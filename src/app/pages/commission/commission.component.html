@@ -1,0 +1,47 @@
+<div class="container-fluid">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <div class="row">
+          <div class="col-md-6">
+            <h6 class="m-0 font-weight-bold text-primary">COMMISSIONS</h6>
+          </div>
+          <div  class="col-md-6 text-right">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#addUpdateCategoryModal"><span class="fas fa-plus"></span> Add Commission</button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Minimum Amount</th>
+              <th>Maximum Amount</th>
+              <th>Commission</th>
+              <th>Created Date</th>
+              <th >Action</th>    
+              </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of commissionList; let i = index">
+              <td>{{i + serialNumber + 1}}</td>
+
+              <td>{{item.minAmount}}</td>
+              <td>{{item.maxAmount}}</td>
+              <td>{{item.commission}}</td>
+              <td>{{item.createdAt | date: 'yyyy-MM-dd'}}</td>
+              <td>
+                <button  class="btn btn-primary mr-1" (click)="modalComponent.onEditSelect(item)"><span class="fas fa-fw fa-edit"></span></button>
+                <button  class="btn btn-danger" (click)="deleteCommision(item._id)"><span class="fas fa-fw fa-trash"></span></button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-commission-modal [isEdit]="flags.isEdit" (onAddEdit)="rerender()" [imageUrl]="imageUrl"></app-commission-modal>
+  

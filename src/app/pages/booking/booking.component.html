@@ -1,0 +1,126 @@
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Bookings</h6>
+        <div class="row">
+          <div class="inner_filers">
+              <label>Filter</label> <div class="filter_left"><input type="text" name="startDate " bsDatepicker [bsConfig]="bsConfig" [(ngModel)]="startDate "
+                class="form-control" placeholder="Start Date"></div>
+                <div class="filter_left"><input type="text" name="endDate" bsDatepicker [bsConfig]="bsConfig" class="form-control" [(ngModel)]="endDate"
+                  placeholder="End Date"></div>
+                  <div class="buttons">
+                  <button type="submit" class="btn btn-primary pl-4 pr-4" (click)="searchUser()">Search</button>
+                  <button type="reset" class="btn btn-primary pl-4 pr-4 ml-2" (click)="reset()">Reset</button>
+                </div>
+             
+          </div>
+         </div>
+       </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Order Id</th>
+                <th>User</th>
+                <th>Provider</th>
+                <th>Service</th>
+                <th>Start Date</th>
+                <th>Completed Date</th>
+                <th>Amount</th>
+                <th>Tax</th>
+                <th>Time Slot</th>
+                <th>Price Type</th>
+                <th>Status</th>
+                <th>Action</th>
+                 </tr>
+            </thead>
+            <tbody>
+             <tr *ngFor="let item of BookingList; let i = index">
+                <td>{{i + serialNumber + 1}}</td>
+                <td>{{item.orderId}}</td>
+                <td>
+                  <div data-toggle="modal" data-target="#userModal"
+                    (click)="selectedUserList = item.sentBy"><span class="badge badge-info">{{item.sentBy.firstName}} {{item.sentBy.lastName}}</span></div>
+                </td>
+                <td><div  data-toggle="modal" data-target="#providerModal" (click)="selectedProviderList = item.sentTo"><span class="badge badge-info">{{item.sentTo.name}}</span></div></td>
+                <td><button class="btn btn-primary" data-toggle="modal" data-target="#serviceModal" (click)="selectedServiceList = item.services"><span class=" fas fa-eye"></span></button></td>
+                <td>{{item.startDate | date: 'yyyy-MM-dd'}}</td>
+                <td>{{item.completedDate | date: 'yyyy-MM-dd'}}</td>
+                <td>
+                  <span *ngIf="item.priceType=='Fixed'">{{item.amount}}
+                    </span>
+                    <span *ngIf="item.priceType=='Negotiate'">{{item.negotiateAmount}}
+                    </span>
+                  </td>
+                <td>{{item.tax}}</td>
+                <td><span *ngIf="item.bookingType == 'Schedule'">
+                  <button class="btn btn-primary" data-toggle="modal" data-target="#ScheduleTimeModal" (click)="selectedscheduleTimeList(item.scheduleTime)"><span class="fas fa-eye"></span></button></span>
+                  <span *ngIf="item.bookingType != 'Schedule'">N/A</span>
+                </td>
+                <td>
+                <span *ngIf="item.priceType=='Fixed'"  class="badge badge-info">{{item.priceType}}</span>
+                <span *ngIf="item.priceType =='Negotiate'">
+                  <button class="btn btn-primary" data-toggle="modal" data-target="#chatModal" (click)="selectedChatList(item.chatList,item.sentBy._id)"><span class="fas fa-eye"></span></button></span>
+               </td>
+                <td [width]="'30px'">
+                  <span  class="badge badge-info">{{item.status}}</span>
+                 </td>
+                <td> 
+                   <span *ngIf="item.status != 'Pending' && item.status != 'Ongoing'" class="badge badge-info">{{item.status}}</span>
+                   <button *ngIf="item.status =='Pending'"
+                       class="btn btn-primary"
+                      (click)="cancel(item)">Cancel</button>
+                      <button *ngIf="item.status =='Ongoing'"
+                       class="btn btn-primary"
+                       (click)="processOrder(item._id, 'Completed', i)">Complete</button>
+                  </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+     </div>
+    </div>
+  </div>
+  <app-provider-modal [sentTo]="selectedProviderList"></app-provider-modal>
+  <app-services-modal [services]="selectedServiceList"></app-services-modal>
+  <app-user-modal [sentBy]="selectedUserList"></app-user-modal>
+  <app-chat-modal [chatList]="chatData" [id]="senderId"></app-chat-modal>
+  <div class="modal" id="ScheduleTimeModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog product-detail" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Time Slots</h5>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+        <table class="table  table-striped">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Day</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of scheduleTime; let i = index">
+            <td>{{i + 1}}</td>
+            <td>
+              {{item.day}}
+            </td>
+           <td>{{item.startTime}}</td>
+           <td>{{item.endTime}}</td>
+
+               </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

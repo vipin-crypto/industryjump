@@ -1,0 +1,77 @@
+<div class="container-fluid">
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class="m-0 font-weight-bold text-primary">EDIT DRIVER</h6>
+            </div>
+            <div class="col-md-6 text-right">
+              <button class="btn btn-primary" (click)="history.back()"><span class="fas fa-arrow-left"></span> Back</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <form #driverForm="ngForm">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" name="firstName" appCharacterOnly [(ngModel)]="body.firstName" maxlength="25" class="form-control" required />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" name="lastName" appCharacterOnly [(ngModel)]="body.lastName" maxlength="25" class="form-control" required />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" name="email" [(ngModel)]="body.email" maxlength="50" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="form-control" required />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="text" name="phone" [(ngModel)]="body.phone" minlength="7" appNumberOnly maxlength="15" class="form-control" required />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Address</label>
+              <input ngx-google-places-autocomplete name="address" [(ngModel)]="body.address" maxlength="200" class="form-control" #placesRef="ngx-places"
+              (onAddressChange)="handleAddressChange($event)" required />
+            </div>            
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>City</label>
+              <input type="text" name="city" [(ngModel)]="body.city" maxlength="50" class="form-control" readonly  required />
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Bio</label>
+              <input type="text" name="bio" [(ngModel)]="body.bio" maxlength="100" class="form-control"  required/>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-12">
+            <button class="btn btn-primary" [disabled]="!driverForm.valid || flags.isUpdate" (click)="editDriver()">
+              <span class="fas fa-save"></span>
+              {{flags.isUpdate?'Updating...':'Update'}}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

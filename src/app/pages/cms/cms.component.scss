@@ -1,0 +1,26 @@
+.container-fluid.editormain {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.card-body {
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 1px 6px 0 rgba(32, 38, 40, 0.28);
+    margin: 15px;
+  
+    border-radius: 6px;
+}
+.card-body_bank {
+    width: 80%;
+    box-sizing: border-box;
+    box-shadow: 0 1px 6px 0 rgba(32, 38, 40, 0.28);
+    margin: 15px;
+  
+    border-radius: 6px;
+}
+
+.e-richtexteditor .e-rte-content .e-content, .e-richtexteditor .e-source-content .e-content {
+    
+    height: 200px !important;}

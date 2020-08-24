@@ -1,0 +1,54 @@
+<div class="container-fluid">
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row">
+        <div class="col-md-6">
+          <h6 class="m-0 font-weight-bold text-primary">COUPONS</h6>
+        </div>
+        <div  *ngIf="(role=='SubAdmin'&& access.write==true)||role=='SuperAdmin'" class="col-md-6 text-right">
+          <button class="btn btn-primary" routerLink="/dashboard/add-coupon"><span class="fas fa-plus"></span> Add Coupon</button>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" width="100%" cellspacing="0">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Discount</th>
+            <th>Coupon Type</th>
+            <th>Category</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Status</th>
+            <th *ngIf="(role=='SubAdmin' && (access.edit==true || access.delete==true))||role=='SuperAdmin'">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of couponList; let i = index">
+            <td>{{i + serialNumber + 1}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.discount}}</td>
+            <td>{{item.type}}</td>
+            <td>{{item.category?item.category.name:'N/A'}}</td>
+            <td>{{item.startDate | date: 'yyyy-MM-dd'}}</td>
+            <td>{{item.endDate | date: 'yyyy-MM-dd'}}</td>
+            <td>
+              <ui-switch [disabled]="role=='SubAdmin' && access.edit==false"  labelOn="ON" switchColor="#4e73df" name="status" [(ngModel)]="item.activeStatus" (ngModelChange)="updateStatus(item)" labelOff="OFF"></ui-switch>
+            </td>
+            <td *ngIf="(role=='SubAdmin' && access.edit == true)||(role=='SubAdmin' && access.delete == true)||role=='SuperAdmin'">
+              <button   *ngIf="(role=='SubAdmin'&& access.edit==true)||role=='SuperAdmin'" class="btn btn-primary mr-1" routerLink="/dashboard/edit-coupon/{{item._id}}"><span class="fas fa-edit"></span></button>
+              <button  *ngIf="(role=='SubAdmin'&& access.delete==true)||role=='SuperAdmin'"  class="btn btn-danger" (click)="deleteCoupon(item._id)"><span class="fas fa-trash"></span></button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <h4 *ngIf="!couponList.length" class="text-center">No records found.</h4>
+      </div>
+      <pagination [totalItems]="totalItems" [maxSize]="5" [boundaryLinks]="true" [(ngModel)]="currentPage" (pageChanged)="onPageChange($event)"></pagination>
+    </div>
+  </div>
+</div>

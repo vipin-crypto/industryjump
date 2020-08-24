@@ -1,0 +1,85 @@
+<div class="container-fluid">
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class="m-0 font-weight-bold text-primary">EDIT SUB ADMIN</h6>
+            </div>
+            <div class="col-md-6 text-right">
+              <button class="btn btn-primary" (click)="history.back()"><span class="fas fa-arrow-left"></span> Back</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <form #subAdminForm="ngForm">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Read</label>
+              <div>
+                <ui-switch labelOn="ON" switchColor="#4e73df" name="read" [(ngModel)]="access.read" labelOff="OFF"></ui-switch>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Write</label>
+              <div>
+                <ui-switch labelOn="ON" switchColor="#4e73df" name="write" [(ngModel)]="access.write" labelOff="OFF"></ui-switch>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Edit</label>
+              <div>
+                <ui-switch labelOn="ON" switchColor="#4e73df" name="edit" [(ngModel)]="access.edit" labelOff="OFF"></ui-switch>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Delete</label>
+              <div>
+                <ui-switch labelOn="ON" switchColor="#4e73df" name="delete" [(ngModel)]="access.delete" labelOff="OFF"></ui-switch>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" name="name" maxlength="50" [(ngModel)]="body.name" class="form-control" required />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" name="email" maxlength="50" [(ngModel)]="body.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="form-control" required />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="text" name="phone" minlength="8" appNumberOnly maxlength="15" [(ngModel)]="body.phone" class="form-control" required />
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-12">
+            <button class="btn btn-primary" [disabled]="!subAdminForm.valid || flags.isUpdate" (click)="editSubAdmin()">
+              <span class="fas fa-save"></span>
+              {{flags.isUpdate?'Updating...':'Update'}}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

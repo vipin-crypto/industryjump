@@ -1,0 +1,36 @@
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <div class="row">
+          <div class="col-md-6">
+            <h6 class="m-0 font-weight-bold text-primary">Contacts</h6>
+          </div>
+         </div>
+       </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Type</th>
+                 </tr>
+            </thead>
+            <tbody>
+             <tr *ngFor="let item of contactList; let i = index">
+                <td>{{i + serialNumber + 1}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.email}}</td>
+                <td>{{item.phone}}</td>
+                <td>{{item.type}}</td>
+                <!-- <td>{{item.completedDate | date: 'yyyy-MM-dd'}}</td> -->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+     </div>
+    </div>
+  </div>

@@ -1,0 +1,66 @@
+<div class="container-fluid">
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row">
+        <div class="col-md-12 user_title">
+          <h6 class="m-0  font-weight-bold text-primary">SUB-ADMIN</h6>
+        </div>
+        <div class="col-md-4 user_filter">
+          <label>Filter</label>
+          <input type="text" class="form-control" name="searchText" [(ngModel)]="filterBody.searchText"
+              placeholder="Search Sub-Admin">
+      </div>
+      <div class="col-md-5 user_serch_btn ">
+          <button type="submit" class="btn btn-primary pl-4 pr-4" (click)="searchUser()">Search</button>
+          <button type="reset" class="btn btn-primary pl-4 pr-4 ml-2" (click)="reset()">Reset</button>
+      </div>
+        <div class="col-md-3 text-right text-right">
+          <button class="btn btn-primary" routerLink="/dashboard/add-sub-admin"><span class="fas fa-plus"></span> Add Sub Admin</button>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" width="100%" cellspacing="0">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>View</th>
+            <th>Add</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of subAdminList; let i = index">
+            <td>{{i + serialNumber + 1}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.phone}}</td>
+            <td>
+              <ui-switch labelOn="YES" switchColor="#4e73df" name="add" [(ngModel)]="item.access.read" (ngModelChange)="updateAccess(item)" labelOff="NO"></ui-switch>
+            </td><td>
+              <ui-switch labelOn="YES" switchColor="#4e73df" name="edit" [(ngModel)]="item.access.write" (ngModelChange)="updateAccess(item)" labelOff="NO"></ui-switch>
+            </td><td>
+              <ui-switch labelOn="YES" switchColor="#4e73df" name="view" [(ngModel)]="item.access.edit" (ngModelChange)="updateAccess(item)" labelOff="NO"></ui-switch>
+            </td><td>
+              <ui-switch labelOn="YES" switchColor="#4e73df" name="delete" [(ngModel)]="item.access.delete" (ngModelChange)="updateAccess(item)" labelOff="NO"></ui-switch>
+            </td>
+            <td class="d-flex">
+              <button class="btn btn-primary mr-1" routerLink="/dashboard/edit-sub-admin/{{item._id}}"><span class="fas fa-edit"></span></button>
+              <button class="btn btn-danger" (click)="deleteAdmin(item._id)"><span class="fas fa-trash"></span></button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <h4 *ngIf="!subAdminList.length" class="text-center">No records found.</h4>
+      </div>
+      <pagination [totalItems]="totalItems" [maxSize]="5" [boundaryLinks]="true" [(ngModel)]="currentPage" (pageChanged)="onPageChange($event)"></pagination>
+    </div>
+  </div>
+</div>

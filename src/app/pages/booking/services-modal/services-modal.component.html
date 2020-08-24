@@ -1,0 +1,42 @@
+<div class="modal" id="serviceModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog product-detail" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Service Information</h5>
+        </div>
+        <div class="modal-body">
+          <table class="table table-responsive table-striped">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Pay Type</th>
+              <th>Price</th>
+              <th>Category</th>
+              <th>Sub Category</th>
+              <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of services; let i = index">
+              <td>{{i + 1}}</td>
+              <td>
+                {{item.service.name}}
+              </td>
+             <td>{{item.service.payType}}</td>
+              <td>{{item.service.price}}</td>
+              <td>{{item.service.category.name}}</td>
+              <td>{{item.service.service[0].name}}</td>
+              <!-- <td>{{item.brand?item.productId.brand.name:'N/A'}}</td> -->
+              <td>{{item.service.desc}}</td>       
+                 </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

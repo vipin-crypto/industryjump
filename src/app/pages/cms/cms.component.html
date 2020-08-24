@@ -1,0 +1,207 @@
+<div class="container-fluid">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6 class="m-0 font-weight-bold text-primary">CMS PAGES</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid editormain">
+            <div class="card-body">
+                <label>Terms and conditions</label>
+                <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+                    <div class="form-group">
+                        <ejs-richtexteditor formControlName="TNC"></ejs-richtexteditor>
+                    </div>
+                    <input type="submit" class="btn btn-primary" name="submit" id="submit" value="Submit">
+                </form>
+            </div>
+            <div class="card-body">
+                <label>Privacy and Policy</label>
+                <form [formGroup]="form1" (ngSubmit)="onSubmit1()" autocomplete="off">
+                    <div class="form-group">
+                        <ejs-richtexteditor formControlName="privacyPolicy"></ejs-richtexteditor>
+                    </div>
+                    <input type="submit" class="btn btn-primary" name="submit" id="submit" value="Submit">
+                </form>
+            </div>
+            <div class="card-body">
+                <label>AboutUs</label>
+                <form [formGroup]="form2" (ngSubmit)="onSubmit2()" autocomplete="off">
+                    <div class="form-group">
+                        <ejs-richtexteditor formControlName="aboutUs"></ejs-richtexteditor>
+                    </div>
+                    <input type="submit" class="btn btn-primary" name="submit" id="submit" value="Submit">
+                </form>
+
+            </div>
+            <div class="card-body">
+                <label>Faq </label>
+                <form #addFaqForm="ngForm" autocomplete="off">
+                    <div class="form-group">
+                        <label>Question</label>
+                        <input type="text" name="question" [(ngModel)]="question" CharacterOnlyDirective
+                            class="form-control" required />
+                        <label>Answer</label>
+                        <input type="text" name="answer" [(ngModel)]="answer" CharacterOnlyDirective
+                            class="form-control" required />
+                        <!-- <ejs-richtexteditor formControlName="content"></ejs-richtexteditor> -->
+                    </div>
+                    <button *ngIf="!add" [disabled]="!addFaqForm.valid" (click)="updateFaq()"
+                        class="btn btn-primary">Submit</button>
+                    <!-- <input  *ngIf="add" class="btn btn-primary" (click)="addData(addFaqForm)" name="submit" id="submit" value="Add"> -->
+                    <button *ngIf="add" class="btn btn-primary" [disabled]="!addFaqForm.valid"
+                        (click)="addData(addFaqForm)">Add</button>
+
+                </form>
+            </div>
+            <!-- <div class="card-body">
+
+                <form [formGroup]="formc" (ngSubmit)="onSubmitCommision()" autocomplete="off">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="pwd">Commission Type</label>
+                                <select class="form-control" formControlName="commissionType">
+                                    <option value="">Select Type</option>
+                                    <option value="Fixed">Fixed</option>
+                                    <option value="Percentage">Percentage</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Commission</label>
+                                <input type="text" class="form-control" appDecimalnumber placeholder="Commission in %"
+                                    formControlName="commission">
+                            </div>
+                        </div>
+
+                    </div>
+                    <input type="submit" class="btn btn-primary" [disabled]="!formc.valid" name="submit" id="submit"
+                        value="Submit">
+
+                </form>
+            </div> -->
+            <div class="card-body">
+                <label>Bank Name </label>
+                <form #addbankForm="ngForm" autocomplete="off">
+                    <div class="form-group">
+                        <input type="text" name="bankname" [(ngModel)]="bankname" CharacterOnlyDirective
+                            class="form-control" required />
+
+                        <!-- <ejs-richtexteditor formControlName="content"></ejs-richtexteditor> -->
+                    </div>
+                    <button *ngIf="!addBank" [disabled]="!addbankForm.valid" class="btn btn-primary"
+                        (click)="updateBank()">Submit</button>
+
+                    <!-- <input  *ngIf="add" class="btn btn-primary" (click)="addData(addFaqForm)" name="submit" id="submit" value="Add"> -->
+                    <button *ngIf="addBank" class="btn btn-primary" [disabled]="!addbankForm.valid"
+                        (click)="addBankData(addbankForm)">Add</button>
+
+                </form>
+            </div>
+            <div class="card-body">
+                <label>Document Name </label>
+                <form #addDocForm="ngForm" autocomplete="off">
+                    <div class="form-group">
+                        <input type="text" name="docname" [(ngModel)]="docname" CharacterOnlyDirective
+                            class="form-control" required />
+
+                        <!-- <ejs-richtexteditor formControlName="content"></ejs-richtexteditor> -->
+                    </div>
+                    <button *ngIf="!addDoc" [disabled]="!addDocForm.valid" (click)="updatedoc()"
+                        class="btn btn-primary">Submit</button>
+                    <!-- <input  *ngIf="add" class="btn btn-primary" (click)="addData(addFaqForm)" name="submit" id="submit" value="Add"> -->
+                    <button *ngIf="addDoc" class="btn btn-primary" [disabled]="!addDocForm.valid"
+                        (click)="addDocData(addDocForm)">Add</button>
+
+                </form>
+            </div>
+        </div>
+        <div *ngIf="faqList && faqList.length>0" class="area_setting_list setting_margin right_side_block">
+            <!-----setting margin class use only css use margin-top property-->
+            <h3 class="setting_title">FAQ List</h3>
+            <div class="area_list">
+                <ul>
+                    <li *ngFor="let data of faqList; let i=index">
+                        <div class="area_list_text">
+                            <p>Question:{{data.question}}</p>
+                            <p>Answer:{{data.answer}}</p>
+
+                        </div>
+                        <div class="product_action">
+                            <button class="btn btn-primary mr-1" (click)="editFaq(data,i)"><span
+                                    class="fas fa-edit"></span></button>
+                            <button class="btn btn-danger" (click)="deleteFaq(data)"><span
+                                    class="fas fa-trash"></span></button>
+                        </div>
+
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div *ngIf="bankList && bankList.length>0" class="area_setting_list setting_margin right_side_block">
+            <!-----setting margin class use only css use margin-top property-->
+            <div class="card-body_bank">
+                <h3 class="setting_title">Banks List</h3>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="80%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <!-- <th>#</th> -->
+                                <th>Name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of bankList; let i=index">
+                                <td>{{data.name}}</td>
+                                <td><button class="btn btn-primary mr-1" (click)="editBank(data,i)"><span
+                                            class="fas fa-edit"></span></button>
+                                    <button class="btn btn-danger" (click)="deleteBank(data)"><span
+                                            class="fas fa-trash"></span></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <div *ngIf="documentList && documentList.length>0" class="area_setting_list setting_margin right_side_block">
+            <!-----setting margin class use only css use margin-top property-->
+            <div class="card-body_bank">
+                <h3 class="setting_title">Documents List</h3>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="80%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <!-- <th>#</th> -->
+                                <th>Name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of documentList; let i=index">
+                                <td>{{data.name}}</td>
+                                <td><button class="btn btn-primary mr-1" (click)="editdoument(data,i)"><span
+                                            class="fas fa-edit"></span></button>
+                                    <button class="btn btn-danger" (click)="deleteDoc(data)"><span
+                                            class="fas fa-trash"></span></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>

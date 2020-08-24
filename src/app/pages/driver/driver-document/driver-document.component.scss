@@ -1,0 +1,19 @@
+.all_document_page_sec .img-wrap {
+    height: 250px !important;
+    }
+.img-wrap img { object-fit: cover !important;}
+.documnet_upload_img {
+    padding: 15px 2rem;
+    padding-bottom: 10px;
+}
+.img-wrap {
+    position: relative;
+    height: 203px;
+}
+.img-wrap input {
+    height: 192px;
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+}

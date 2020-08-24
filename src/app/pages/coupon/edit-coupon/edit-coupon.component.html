@@ -1,0 +1,82 @@
+<div class="container-fluid">
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class="m-0 font-weight-bold text-primary">EDIT COUPON</h6>
+            </div>
+            <div class="col-md-6 text-right">
+              <button class="btn btn-primary" (click)="history.back()"><span class="fas fa-arrow-left"></span> Back</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <form #addCouponForm="ngForm">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" name="name" [(ngModel)]="body.name" maxlength="50" class="form-control" required />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Discount</label>
+              <input type="text" name="discount" [(ngModel)]="body.discount" appNumberOnly maxlength="6" class="form-control" required />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Discount Type</label>
+              <select name="type" class="form-control" [(ngModel)]="body.type" required>
+                <option value="">Select Type</option>
+                <option value="FIXED">Fixed</option>
+                <option value="PERCENTAGE">Percentage</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Product Category</label>
+              <select name="category" class="form-control" [(ngModel)]="body.category">
+                <option value="">Select Category</option>
+                <option *ngFor="let item of categoryList;" value="{{item._id}}">{{item.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Start Date</label>
+              <input type="text" name="startDate" bsDatepicker [bsConfig]="bsConfig" [minDate]="min" [(ngModel)]="body.startDate" class="form-control" required readonly>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>End Date</label>
+              <input type="text" name="endDate" bsDatepicker [bsConfig]="bsConfig" [(ngModel)]="body.endDate" [minDate]="min" class="form-control" required readonly>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Description</label>
+              <textarea name="desc" [(ngModel)]="body.description" class="form-control"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-12">
+            <button class="btn btn-primary" [disabled]="!addCouponForm.valid || flags.isUpdate" (click)="editCoupon()">
+              <span class="fas fa-save"></span>
+              {{flags.isUpdate?'Updating...':'Update'}}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

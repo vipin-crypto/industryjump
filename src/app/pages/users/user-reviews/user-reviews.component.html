@@ -1,0 +1,105 @@
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <div class="row">
+          <div class="col-md-6">
+            <h6 class="m-0 font-weight-bold text-primary">REVIEW-RATING</h6>
+          </div>
+          <div class="col-md-6 text-right">
+          <button class="btn btn-primary" (click)="history.back()"><span
+                  class="fas fa-arrow-left"></span>
+              Back</button>
+      </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Provider Name</th>
+              <!-- <th>User Name</th> -->
+              <th>Review</th>
+              <th>Rating</th>
+              <th>Favourite </th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of productList; let i = index">
+              <td>{{i + serialNumber + 1}}</td>
+              <td>{{item.provider.name}}</td>
+              <!-- <td>{{item.userId.firstName}}   {{item.userId.lastName}}</td> -->
+              <td>{{item.review}}</td>
+              <td>{{item.rating}}</td>
+              <td>
+                <ui-switch labelOn="ON" switchColor="#4e73df" id="isActive" [(ngModel)]="item.isFavourite" 
+              name="isActive" labelOff="OFF" (click)="updateStatus(item)"></ui-switch>
+              </td>
+              <td>
+                <div class="d-flex">
+                                <!-- <button  class="btn btn-primary mr-1" (click)="modal.onEditSelect(item)"><span class="fas fa-fw fa-edit"></span></button> -->
+                                <button class="btn btn-primary mr-1" (click)="onEditSelect(item)" data-toggle="modal" data-target="#EditReviewModal"><span class="fas fa-fw fa-edit"></span></button>
+
+                <button class="btn btn-danger" (click)="deleteReview(item._id)"><span
+                    class="fas fa-fw fa-trash"></span></button>
+                    </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="EditReviewModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Review/Rating</h5>
+        </div>
+        <div *ngIf="ratingData" class="modal-body">
+            <form #serviceForm ="ngForm">
+                    <div class="form-group">
+                <label> Provider Name</label>
+                <input type="text" class="form-control"  name="name" [(ngModel)]="ratingData.provider.name" #name="ngModel" readonly />
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                <label>User First Name</label>
+                <input type="text" class="form-control"  name="firstName"[(ngModel)]="ratingData.userId.firstName" #firstName="ngModel" readonly />
+              </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                <label>User Last Name</label>
+                <input type="text" class="form-control"  name="lastName" [(ngModel)]="ratingData.userId.lastName" #lastName="ngModel" readonly />
+              </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+            <label>Rating</label>
+            <input type="text" (keyup)="validate($event.target.value)" class="form-control" maxlength="3"  name="ratings" appDecimalnumber   [(ngModel)]="ratings" required />
+          </div>
+          </div>
+          <div class="col-md-6">
+              <div class="form-group">
+            <label>Review</label>
+            <textarea type="text" class="form-control"  name="reviews" [(ngModel)]="reviews" maxlength="250" required ></textarea>
+          </div>
+        </div>
+    </div>
+            </form>
+          </div>
+        <div class="modal-footer">
+            <button *ngIf="isEdit" type="button" class="btn btn-primary" [disabled]="flags.isUpdate" (click)="update()">{{flags.isUpdate?'Updating...':'Update'}}</button>
+            <button type="button" class="btn btn-secondary" id="closeCategoryModal" (click)="onCancel()" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  

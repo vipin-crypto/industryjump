@@ -1,0 +1,70 @@
+<div class="container-fluid">
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row">
+        <div class="col-md-12 user_title">
+          <h6 class="m-0 font-weight-bold text-primary">DRIVERS</h6>
+        </div>
+        <div class="col-md-4 user_filter">
+          <label>Filter</label>
+          <input type="text" class="form-control" name="searchText" [(ngModel)]="filterBody.searchText"
+              placeholder="Search Driver">
+      </div>
+      <div class="col-md-5 user_serch_btn">
+          <button type="submit" class="btn btn-primary pl-4 pr-4" (click)="searchUser()">Search</button>
+          <button type="reset" class="btn btn-primary pl-4 pr-4 ml-2" (click)="reset()">Reset</button>
+      </div>
+        <div  *ngIf="(role=='SubAdmin'&& access.write==true)||role=='SuperAdmin'" class="col-md-3 text-right" >
+          <button class="btn btn-primary" routerLink="/dashboard/add-driver"><span class="fas fa-plus"></span> Add Driver</button>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" width="100%" cellspacing="0">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Bio</th>
+            <th>Status</th>
+            <th>Documents</th>
+            <th *ngIf="(role=='SubAdmin' && (access.edit==true || access.delete==true))||role=='SuperAdmin'">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of driverList; let i = index">
+            <td>{{i + serialNumber + 1}}</td>
+            <td>{{item.firstName}} {{item.lastName}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.phone}}</td>
+            <td>{{item.address}}</td>
+            <td>{{item.city}}</td>
+            <td>{{item.bio || 'N/A'}}</td>
+            <td class="text-center">
+              <button *ngIf="!item.isApproved" class="btn btn-primary" (click)="approveDriver(item)">Approve</button>
+              <span *ngIf="item.isApproved" class="badge badge-info">Approved</span>
+            </td>
+            <td class="text-center">
+              <button class="btn btn-primary" routerLink="/dashboard/driver-document/{{item._id}}"><span class="fas fa-eye"></span></button>
+            </td>
+            <td class="action" *ngIf="(role=='SubAdmin' && access.edit == true)||(role=='SubAdmin' && access.delete == true)||role=='SuperAdmin'" >
+              <div class="d-flex">
+              <button  *ngIf="(role=='SubAdmin'&& access.edit==true)||role=='SuperAdmin'"  class="btn btn-primary mr-1" routerLink="/dashboard/edit-driver/{{item._id}}"><span class="fas fa-edit"></span></button>
+              <button  *ngIf="(role=='SubAdmin'&& access.delete==true)||role=='SuperAdmin'"  class="btn btn-danger " (click)="deleteAdmin(item._id)"><span class="fas fa-trash"></span></button>
+           </div>
+            </td>
+          </tr>
+           </tbody>
+        </table>
+        <h4 *ngIf="!driverList.length" class="text-center">No records found.</h4>
+      </div>
+      <pagination [totalItems]="totalItems" [maxSize]="5" [boundaryLinks]="true" [(ngModel)]="currentPage" (pageChanged)="onPageChange($event)"></pagination>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+button:disabled {
+  background: gray;
+  border-color: gray;
+  cursor: not-allowed;
+}
+button {
+  outline: none !important;
+}
+
+.bg-login-image {
+  background: #ffffff !important;
+}
+
+img.ng-tns-c2-1 {
+    width: auto !important;
+    margin-left: 50px;
+}
+.justify-content-center {
+    height: 100%;
+    align-items: center;
+}
+.row {
+  align-items: center;
+}

@@ -1,0 +1,50 @@
+<div class="container-fluid">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-6">
+                <h6 class="m-0 font-weight-bold text-primary">Documents</h6>
+              </div>
+              <div class="col-md-6 text-right">
+                <button class="btn btn-primary" (click)="history.back()"><span class="fas fa-arrow-left"></span> Back</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row documnet_upload_img">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Document One</label>
+            <div class="img-wrap">
+                <img  *ngIf="documentOne" [src]="imageUrl+documentOne" alt="your image" width="400px" height="200" />
+
+            <input  *ngIf="(role=='SubAdmin'&& access.edit==true)||role=='SuperAdmin'"  type="file" (change)="ondocumenet1Select($event,'documentOne')" id="categoryFile" class="form-control">
+        </div>
+        </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Document Two</label>
+            <div class="img-wrap">
+                <img *ngIf="documentTwo" [src]="imageUrl+documentTwo" alt="your image" width="400px" height="200" />
+                <!-- <a download="" (click)='forceDownload(baseUrl,documentTwo)'
+                class="btn btn-primary">download</a> -->
+            <input  *ngIf="(role=='SubAdmin'&& access.edit==true)||role=='SuperAdmin'"  type="file" (change)="ondocumenet2Select($event,'documentTwo')" id="categoryFile" class="form-control">
+        </div>
+        </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Document Three</label>
+            <div class="img-wrap">
+                <img *ngIf="documentThree" [src]="imageUrl+documentThree" alt="your image" width="400px" height="200" />
+            <input  *ngIf="(role=='SubAdmin'&& access.edit==true)||role=='SuperAdmin'"  type="file" (change)="ondocumenet3Select($event,'documentThree')" id="categoryFile" class="form-control">
+        </div>
+        </div>
+        </div>
+        </div>
+      

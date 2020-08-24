@@ -1,0 +1,68 @@
+<div class="modal" id="chatModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Chat History</h5>
+      </div>
+      <div *ngIf="chatList && chatList.length>0" class="modal-body">
+        <div *ngFor = "let chat of chatList">
+          <!-- <div  #receriverMsg class="msg left-msg">
+            <div  class="msg-bubble">
+              <div class="msg-info">
+                <div class="msg-info-name">{{name}}</div>
+                <div class="msg-info-time">
+                  {{chat.createdAt | date: 'hh:mm a'}}
+                </div>
+              </div>
+              <div class="msg-text">
+                {{chat.message}} </div>
+                <div *ngIf="chat.type=='offer'" class="Offer_sent_parent">
+                  <div class="offer_sent">
+                      <div class="offer_sent_content">
+                          <h6>Offer Sent</h6>
+                          <h3>${{chat.negotiateAmount}}</h3>
+                      </div>
+                      <ul class="flex decline_Accept">
+                      <li> <button>{{chat.status?chat.status:'Pending'}}</button></li>
+                      </ul>
+                  </div>
+             </div>
+              </div>
+            </div> -->
+          <div class="msg " [ngClass]="{'right-msg': chat.sender._id.toString() != id.toString(), 'left-msg': chat.sender._id.toString() == id.toString()}" >
+            <div [class.msg-bubble]="chat.type=='text'" [class.msg-offer_sent]="chat.type !='text'">
+              <div class="msg-info">
+                <div *ngIf="chat.sender.id == id" class="msg-info-name">{{chat.sender.firstName}} {{chat.sender.lastName}}</div>
+                <div *ngIf="chat.sender.id != id" class="msg-info-name"> {{chat.sender.name}} </div>
+                
+                <!-- <div class="msg-info-time"> {{chat.createdAt | date: 'hh:mm a'}} -->
+                  <!-- <div *ngIf="chat.sender.id == id" class="msg-info-name">{{chat.receiver.name}} </div> -->
+                  <!-- <div *ngIf="chat.sender.id != id" class="msg-info-name">{{chat.receiver.name}} </div> -->
+
+              </div>
+              <div *ngIf="chat.type=='text'"  class="msg-text">
+                {{chat.message}} </div>
+            <div *ngIf="chat.type !='text'"  class="Offer_sent_parent">
+              <div class="offer_sent">
+                  <div class="offer_sent_content">
+                      <h6>Offer Sent</h6>
+                      <h3>${{chat.amount}}</h3>
+                  </div>
+                  <ul class="flex decline_Accept">
+                  <li> <button>{{chat.status?chat.status:'Pending'}}</button></li>
+                  </ul>
+              </div>
+         </div>
+        </div>
+
+      </div>
+    </div>
+        </div>
+        <div class="modal-body" *ngIf="chatList && chatList.length==0">No Chat history</div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+  </div>
+</div>

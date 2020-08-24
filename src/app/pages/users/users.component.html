@@ -1,0 +1,90 @@
+<div class="container-fluid">
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row">
+        <div class="col-md-6">
+          <h6 class="m-0 font-weight-bold text-primary">USERS</h6>
+        </div>
+        <div class="col-md-6 text-right">
+          <button class="btn btn-primary" (click)="generateUserCsv()"><span class="fas fa-download"></span> ExportCsv</button>
+        </div>
+      </div>
+     
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+               <th>Address</th>
+              <th>City</th>
+              <th>Joining Date</th>
+              <th>Reviews</th>
+              <th>Bookings</th>
+              <th class="approve_status">Block User</th>
+              <th>Status</th>
+              <th 
+                [width]="'10%'">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+  
+            <tr *ngFor="let item of userList; let i = index">
+              <td>{{i + serialNumber + 1}}</td>
+              <td>{{item.firstName}} {{item.lastName}}</td>
+              <td>{{item.email}}</td>
+              <td> {{item.phone}}</td>
+              <td>{{item.address}}</td>
+              <td>{{item.city}}</td>
+              <td>{{item.createdAt | date: 'yyyy-MM-dd'}}</td>
+              <td> <button class="btn btn-primary"  data-toggle="tooltip" data-placement="top" title="Reviews" routerLink="/dashboard/user-review-rating/{{item._id}}">
+                <span class="fas fa-eye"></span></button>
+            </td>
+          <td   class="text-center">
+                <button  class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Bookings" routerLink="/dashboard/user-booking/{{item._id}}"><span
+                    class="fas fa-eye"></span></button>
+              </td>
+              <td class="status"><span *ngIf="item.isBlock==true" class="badge badge-info">Blocked</span>
+                  <button *ngIf="item.isBlock==false" class="btn btn-primary"
+                  (click)="approved(item,'true')">Block</button>
+                  <button *ngIf="item.isBlock==true" class="btn btn-primary"
+                  (click)="approved(item,'false')">UnBlock</button></td>
+              <!-- <td><span class="badge badge-info">{{item.role}}</span></td> -->
+              
+              <!-- <td [width]="'30px'">
+                <span *ngIf="item.isApprove==true" class="badge badge-info">Approved</span>
+                <div *ngIf="(role=='SubAdmin'&& access.edit==true)||role=='SuperAdmin'">
+                  <button *ngIf="!item.isApprove"
+                     class="btn btn-primary"
+                    (click)="approved(item)">Approve</button>
+                </div>
+                <button *ngIf="item.isApprove " class="btn btn-success">Approved</button>
+              </td> -->
+          <td class="active_status">
+              <span *ngIf="item.isActive==true" class="badge badge-info">Active</span>
+              <span *ngIf="item.isActive==false" class="badge badge-info">InActive</span>
+
+                </td>
+              <td class="action"
+               >
+                <div class="d-flex">
+                  <button
+                    class="btn btn-primary mr-1 " routerLink="/dashboard/edit-user/{{item._id}}"><span
+                      class="fas fa-fw fa-edit"></span></button>
+                  <button  class="btn btn-danger"
+                    (click)="deleteUser(item._id)"><span class="fas fa-fw fa-trash"></span></button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>

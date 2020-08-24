@@ -1,0 +1,41 @@
+<div class="modal" id="addUpdateCategoryModal" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{isEdit?'Edit':'Add'}} Commission</h5>
+        </div>
+        <div class="modal-body">
+          <form #commissionForm="ngForm">
+              <div class="form-group">
+                  <label>IsPlus</label><br>
+                <ui-switch labelOn="ON" switchColor="#4e73df" id="isPlus " [(ngModel)]="isPlus" 
+                name="isPlus" labelOff="OFF" (click)="Active(isPlus)"></ui-switch>
+              </div>
+              
+            <div class="form-group">
+               
+              <label>Minimum Amount</label>
+              <input type="text" class="form-control" appDecimalnumber maxlength="10" name="minAmount" [(ngModel)]="minAmount" required />
+            </div>
+         
+            <div class="form-group">
+                <label>Maximum Amount</label>
+                <input type="text" class="form-control" [disabled]="plus" appDecimalnumber  maxlength="10" name="maxAmount" [(ngModel)]="maxAmount" required />
+              </div>
+              
+              <div class="form-group">
+                <label>Commission </label>
+                <input type="text" class="form-control"  appDecimalnumber maxlength="10" name="commission" [(ngModel)]="commission" required />
+              </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button *ngIf="!isEdit" type="button" class="btn btn-primary" [disabled]="!commissionForm.valid || flags.isAdded" (click)="addCommission()">{{flags.isAdded?'Saving...':'Save'}}</button>
+          <button *ngIf="isEdit" type="button" class="btn btn-primary" [disabled]="!commissionForm.valid || flags.isUpdate" (click)="editCommission()">{{flags.isUpdate?'Updating...':'Update'}}</button>
+          <button type="button" class="btn btn-secondary" id="closeCategoryModal" (click)="onCancel()" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <input type="hidden" id="openCategoryModal" data-toggle="modal" data-target="#addUpdateCategoryModal">
+  

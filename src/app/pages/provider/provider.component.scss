@@ -1,0 +1,24 @@
+// table.dataTable thead th:first-child {
+//     width: 13px !important;
+// }
+// table.dataTable tbody td, table.dataTable tbody th {
+//     font-size: 14px;
+// }
+// table.dataTable.no-footer {
+//     table-layout: fixed;
+// }
+
+td.status span {
+    margin-right: 5px;
+}
+td.status {
+    display: flex;
+    width: 100px !important;
+    align-items: center;
+    justify-content: center;
+    height: 100px;}
+    td.status button {
+        padding: 3px 6px;
+        margin-right: 5px;
+        font-size: 13px;
+    }

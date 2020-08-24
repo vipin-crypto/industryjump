@@ -1,0 +1,38 @@
+<div class="modal" id="addEditServiceModal" data-backdrop="static" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{flags.isEdit?'Edit':'Add'}} Service</h5>
+      </div>
+      <div class="modal-body">
+        <form #serviceForm="ngForm">
+          <div class="form-group">
+            <label>Image</label><br>
+            <input type="file" (change)="onImageSelect($event)" id="brandImage" accept=".png, .jpg, .jpeg">
+            <div *ngIf="src">
+              <img src="{{src}}" width="100px" height="100px">
+<!--              <p><a href="javascript:void(0)" (click)="onImageRemove()">Remove</a></p>-->
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control"  maxlength="50" [(ngModel)]="serviceName" name="name" required />
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <select name="category" class="form-control" [(ngModel)]="category" required>
+              <option value="">Select Category</option>
+              <option *ngFor="let item of categoryList;" value="{{item._id}}">{{item.name}}</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button *ngIf="!flags.isEdit" type="button" class="btn btn-primary" [disabled]="!serviceForm.valid || flags.isAdded" (click)="addService()">{{flags.isAdded?'Saving...':'Save'}}</button>
+        <button *ngIf="flags.isEdit" type="button" class="btn btn-primary" [disabled]="!serviceForm.valid || flags.isUpdate" (click)="editService()">{{flags.isUpdate?'Updating...':'Update'}}</button>
+        <button type="button" class="btn btn-secondary" id="closeServiceModal" (click)="onCancel()" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<input type="hidden" id="openBrandModal" data-toggle="modal" data-target="#addEditServiceModal">

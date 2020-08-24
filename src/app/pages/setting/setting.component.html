@@ -1,0 +1,92 @@
+<div class="container-fluid">
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12">
+              <h6 class="m-0 font-weight-bold text-primary">SETTINGS</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="accordion w-100" id="accordionExample">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h2 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <strong>APP DASHBOARD</strong>
+                </button>
+              </h2>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+              <div class="card-body">
+<!--                <div class="row">-->
+<!--                  <div class="col-md-12">-->
+<!--                    <form #addHomeDataForm="ngForm">-->
+<!--                      <div class="row">-->
+<!--                        <div class="col-md-4">-->
+<!--                          <div class="form-group">-->
+<!--                            <input type="text" appNumberOnly maxlength="6" placeholder="Serial Number" [(ngModel)]="addHomeDataBody.serialNumber" name="serialNumber" class="form-control" required />-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-4">-->
+<!--                          <div class="form-group">-->
+<!--                            <input type="text" name="label" maxlength="50" placeholder="Label" [(ngModel)]="addHomeDataBody.label" class="form-control" required />-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-4">-->
+<!--                          <div class="form-group">-->
+<!--                            <button class="btn btn-primary w-100" [disabled]="!addHomeDataForm.valid" (click)="addHomeData()"><span class="fas fa-plus"></span>Add</button>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </form>-->
+<!--                  </div>-->
+<!--                </div>-->
+                <div class="row">
+                  <div class="table-responsive">
+                    <cdk-drop-list (cdkDropListDropped)="onDrop($event)">
+                      <table class="table table-striped">
+                        <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Label</th>
+                          <th>Serial Number</th>
+                          <th>Active Status</th>
+<!--                          <th>Action</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let item of appHomeList; let i = index" title="Drag to change serial number" cdkDrag>
+                          <td>{{i + 1}}</td>
+                          <td>{{item.label}}</td>
+                          <td>{{item.serialNumber}}</td>
+                          <td>
+                            <ui-switch labelOn="ON" switchColor="#4e73df" name="status" [(ngModel)]="item.isActive" (ngModelChange)="onChangeStatus(i, item)" labelOff="OFF"></ui-switch>
+                          </td>
+<!--                          <td>-->
+<!--                            <button class="btn btn-danger" (click)="appHomeList.splice(i, 1)"><span class="fas fa-trash"></span></button>-->
+<!--                          </td>-->
+                        </tr>
+                        </tbody>
+                      </table>
+                    </cdk-drop-list>
+                  </div>
+                </div>
+                <div class="row">
+                  <button class="btn btn-primary"  [disabled]="flags.isUpdate || (role=='SubAdmin' && access.edit==false )" (click)="editSetting()"><span class="fas fa-save"></span> Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

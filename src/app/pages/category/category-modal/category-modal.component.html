@@ -1,0 +1,33 @@
+<div class="modal" id="addUpdateCategoryModal" data-backdrop="static" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{isEdit?'Edit':'Add'}} Category</h5>
+      </div>
+      <div class="modal-body">
+        <form #categoryForm="ngForm">
+          <div class="form-group">
+            <label>Image</label><br>
+            <label class="file">
+              <input type="file" (change)="onImageSelect($event)" id="categoryFile" accept=".png, .jpg, .jpeg">
+            </label>
+            <div *ngIf="src">
+              <img src="{{src}}" width="100px" height="100px">
+             <!-- <p><a href="javascript:void(0)" (click)="onImageRemove()">Remove</a></p> -->
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control"  maxlength="50" name="name" [(ngModel)]="categoryName" required />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button *ngIf="!isEdit" type="button" class="btn btn-primary" [disabled]="!categoryForm.valid || flags.isAdded" (click)="addCategory()">{{flags.isAdded?'Saving...':'Save'}}</button>
+        <button *ngIf="isEdit" type="button" class="btn btn-primary" [disabled]="!categoryForm.valid || flags.isUpdate" (click)="editCategory()">{{flags.isUpdate?'Updating...':'Update'}}</button>
+        <button type="button" class="btn btn-secondary" id="closeCategoryModal" (click)="onCancel()" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<input type="hidden" id="openCategoryModal" data-toggle="modal" data-target="#addUpdateCategoryModal">

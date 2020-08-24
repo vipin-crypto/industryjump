@@ -1,0 +1,41 @@
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+  <!-- Sidebar - Brand -->
+  <a class="sidebar-brand d-flex align-items-center justify-content-center mt-1" href="javascript:void(0)" routerLink="/dashboard/home">
+    <div class="sidebar-brand-icon">
+      <figure><img src="assets/logo.png"></figure>
+  </div>
+  <div class="sidebar-brand-text mx-3">
+      <figure><img src="assets/logo.png"></figure>
+  </div>
+  </a>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider my-0">
+<!--  <div class="sidebar-heading">-->
+<!--    Addons-->
+<!--  </div>-->
+
+
+  <!-- Nav Item - Charts -->
+  <ng-container *ngFor="let item of menuItems; let i = index">
+
+  <li  routerLink="{{item.path}}" routerLinkActive="active" class="nav-item">
+    <a class="nav-link" href="javascript:void(0)" >
+      <img [src]="item.icon" />
+      <span>{{item.title}}</span></a>
+  </li>
+   
+  </ng-container>
+ 
+  <!-- Divider -->
+  <hr class="sidebar-divider d-none d-md-block">
+
+  <!-- Sidebar Toggler (Sidebar) -->
+  <div class="text-center d-none d-md-inline">
+    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+  </div>
+
+</ul>
+<!-- End of Sidebar -->
